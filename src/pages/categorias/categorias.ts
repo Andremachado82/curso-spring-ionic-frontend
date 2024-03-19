@@ -27,4 +27,9 @@ export class CategoriasPage {
     }, error => {});
   }
 
+  showProdutos() {
+    console.log("entrou no show produtos")
+    this.navCtrl.push('ProdutosPage');
+  }
+
 }
