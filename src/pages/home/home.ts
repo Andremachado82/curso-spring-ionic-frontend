@@ -45,5 +45,11 @@ export class HomePage {
     }, error => {});
   }
 
+  signup() {
+    console.log("passou")
+    this.navCtrl.push('SignupPage');
+
+  }
+
 
 }
