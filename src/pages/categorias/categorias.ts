@@ -27,9 +27,9 @@ export class CategoriasPage {
     }, error => {});
   }
 
-  showProdutos() {
+  showProdutos(idCategoria: string) {
     console.log("entrou no show produtos")
-    this.navCtrl.push('ProdutosPage');
+    this.navCtrl.push('ProdutosPage', {idCategoria: idCategoria});
   }
 
 }
