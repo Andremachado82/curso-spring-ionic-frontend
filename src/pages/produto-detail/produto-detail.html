@@ -17,5 +17,5 @@
       <p>{{item?.preco |  currency:"BRL":true:"1.2"}}</p>
     </ion-card-content>
   </ion-card>
-  <button ion-button block outline>Adicionar ao carrinho</button>
+  <button ion-button block outline  (click)="addToProduto(item)">Adicionar ao carrinho</button>
 </ion-content>
