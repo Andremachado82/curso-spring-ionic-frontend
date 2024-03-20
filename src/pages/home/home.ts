@@ -46,9 +46,7 @@ export class HomePage {
   }
 
   signup() {
-    console.log("passou")
     this.navCtrl.push('SignupPage');
-
   }
 
 

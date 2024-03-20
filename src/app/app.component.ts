@@ -20,9 +20,9 @@ export class MyApp {
     public authService: AuthService) {
     this.initializeApp();
     this.pages = [
-      { title: 'Profile', component: 'ProfilePage' },
+      { title: 'Perfil', component: 'ProfilePage' },
       { title: 'Categorias', component: 'CategoriasPage' },
-      { title: 'Logout', component: '' }
+      { title: 'Sair', component: '' }
     ];
 
   }
@@ -36,7 +36,7 @@ export class MyApp {
 
   openPage(page: {title: string, component: string}) {
     switch(page.title) {
-      case 'Logout':
+      case 'Sair':
         this.authService.logout();
         this.nav.setRoot('HomePage')
       break;
