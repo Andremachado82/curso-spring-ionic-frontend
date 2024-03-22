@@ -25,4 +25,7 @@
       <p>{{item.preco |  currency:"BRL":true:"1.2"}}</p>
     </ion-item>
   </ion-list>
+  <ion-infinite-scroll (ionInfinite)="infiniteScrool($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll> 
 </ion-content>
