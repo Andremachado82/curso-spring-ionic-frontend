@@ -17,7 +17,7 @@ export class ProfilePage {
   picture: string;
   cameraOn: boolean = false;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public storageService: StorageService,
     public clienteService: ClienteService,
@@ -25,28 +25,31 @@ export class ProfilePage {
   }
 
   ionViewDidLoad() {
+    this.loadData();
+  }
+
+  loadData() {
     let localUser = this.storageService.getLocalUser();
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email)
-      .subscribe(response => {
-        this.cliente = response as ClienteDTO;
-        this.getImageIfExistsFromBucket();
-      }, error => {
-        if(error.status == 403) {
-          this.navCtrl.setRoot('HomePage');
-        } else {
-          this.navCtrl.setRoot('HomePage');
-        }
-      });
+        .subscribe(response => {
+          this.cliente = response as ClienteDTO;
+          this.getImageIfExistsFromBucket();
+        }, error => {
+          if (error.status == 403) {
+            this.navCtrl.setRoot('HomePage');
+          } else {
+            this.navCtrl.setRoot('HomePage');
+          }
+        });
     }
   }
 
   getImageIfExistsFromBucket() {
     this.clienteService.getImageFromBucket(this.cliente.id)
-    .subscribe(response => {
-      this.cliente.imageUrl = `${API_CONFIG.bucketS3BaseUrl}/cp${this.cliente.id}.jpg`;
-      console.log("getImageIfExistsFromBucket " + this.cliente.imageUrl);
-    }, error => {})
+      .subscribe(response => {
+        this.cliente.imageUrl = `${API_CONFIG.bucketS3BaseUrl}/cp${this.cliente.id}.jpg`;
+      }, error => { })
   }
 
   getCameraPicture() {
@@ -61,10 +64,24 @@ export class ProfilePage {
     }
 
     this.camera.getPicture(options).then((imageData) => {
-     this.picture = 'data:image/png;base64,' + imageData;
-     this.cameraOn = false;
+      this.picture = 'data:image/png;base64,' + imageData;
+      this.cameraOn = false;
     }, (err) => {
     });
+  }
+
+  sendPicture() {
+    this.clienteService.uploadPicture(this.picture)
+      .subscribe(response => {
+        this.picture = null;
+        this.loadData();
+      },
+        error => {
+        });
+  }
+
+  cancel() {
+    this.picture = null;
   }
 
 }
