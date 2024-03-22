@@ -19,6 +19,7 @@ export class ConfirmacaoPagamentoPage {
   cartItens: CartItem[];
   cliente: ClienteDTO;
   endereco: EnderecoDTO;
+  codigoPedido: string;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -51,21 +52,30 @@ export class ConfirmacaoPagamentoPage {
     return this.cartService.totalCart();
   }
 
-  back() {
+  backCart() {
     this.navCtrl.setRoot('CartPage');
+  }
+
+  backCategorias() {
+    this.navCtrl.setRoot('CategoriasPage');
   }
 
   checkout() {
     this.pedidoService.insert(this.pedido)
       .subscribe(response => {
         this.cartService.createOrClearCart();
-        console.log('location ' + response.headers.get('location'));
+        this.codigoPedido = this.extrairId(response.headers.get('location'));
       }, error => {
         if(error.status == 403) {
           this.navCtrl.setRoot('HomePage');
         }
       });
 
+  }
+
+  private extrairId(location: string) {
+    let posicao = location.lastIndexOf('/');
+    return location.substring(posicao + 1, location.length);
   }
 
 }
