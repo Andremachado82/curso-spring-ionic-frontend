@@ -34,8 +34,6 @@ export class ProdutosPage {
       this.listaProdutos = this.listaProdutos.concat(response['content']);
       let end = this.listaProdutos.length -1;
       loader.dismiss();
-      console.log(this.page);
-        console.log(this.listaProdutos);
       this.getImageIfExistsFromBucket(start, end);
     }, error => {
       loader.dismiss();
