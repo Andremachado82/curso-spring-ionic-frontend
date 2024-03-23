@@ -7,10 +7,10 @@ import { API_CONFIG } from "../../config/api.config";
 @Injectable()
 export class CidadeService {
 
-    constructor(public http: HttpClient) {        
+    constructor(public http: HttpClient) {
     }
 
-    findAllCidades(idEstado: string) : Observable<CidadeDTO[]> {
+    findAllCidades(idEstado: string): Observable<CidadeDTO[]> {
         return this.http.get<CidadeDTO[]>(
             `${API_CONFIG.baseUrl}/estados/${idEstado}/cidades`);
     }

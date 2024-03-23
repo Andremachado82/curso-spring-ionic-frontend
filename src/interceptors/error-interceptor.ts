@@ -8,42 +8,42 @@ import { FieldMessage } from "../models/field-message";
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-    constructor(public storage: StorageService, public alertController: AlertController) {}
+    constructor(public storage: StorageService, public alertController: AlertController) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req)
-        .catch((error, caught) => {
-            let errorObj = error;
-            if (errorObj.error) {
-                errorObj = errorObj.error;
-            }
-            if (!errorObj.status) {
-                errorObj = JSON.parse(errorObj);
-            }
+            .catch((error, caught) => {
+                let errorObj = error;
+                if (errorObj.error) {
+                    errorObj = errorObj.error;
+                }
+                if (!errorObj.status) {
+                    errorObj = JSON.parse(errorObj);
+                }
 
-            console.log('Erro detectado pelo Interceptor:');
-            console.log(errorObj.error);
+                console.log('Erro detectado pelo Interceptor:');
+                console.log(errorObj.error);
 
-            switch(errorObj.status) {
-                case 401:
-                this.handle401();
-                break;
+                switch (errorObj.status) {
+                    case 401:
+                        this.handle401();
+                        break;
 
-                case 403:
-                this.handle403();
-                break;
+                    case 403:
+                        this.handle403();
+                        break;
 
-                case 422:
-                this.handle422(errorObj);
-                break;
+                    case 422:
+                        this.handle422(errorObj);
+                        break;
 
-                default:
-                this.handleDefaultError(errorObj);
-            }
+                    default:
+                        this.handleDefaultError(errorObj);
+                }
 
-            return Observable.throw(errorObj);
-        }) as any;
-        
+                return Observable.throw(errorObj);
+            }) as any;
+
     }
 
     handle401() {
@@ -52,7 +52,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             message: 'Email ou senha incorretos',
             enableBackdropDismiss: false,
             buttons: [
-                {text: 'OK'}
+                { text: 'OK' }
             ]
         });
         alert.present();
@@ -64,11 +64,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     handle422(errorObj) {
         const alert = this.alertController.create({
-            title: 'Erro 422: Validação ' ,
+            title: 'Erro 422: Validação ',
             message: this.listErrors(errorObj.errors),
             enableBackdropDismiss: false,
             buttons: [
-                {text: 'OK'}
+                { text: 'OK' }
             ]
         });
         alert.present();
@@ -80,16 +80,16 @@ export class ErrorInterceptor implements HttpInterceptor {
             message: errorObj.message,
             enableBackdropDismiss: false,
             buttons: [
-                {text: 'OK'}
+                { text: 'OK' }
             ]
         });
         alert.present();
-    }    
+    }
 
     listErrors(messages: FieldMessage[]): string {
         let message: string = '';
         for (let i = 0; i < messages.length; i++) {
-            message = message + '<p><strong>' + messages[i].fieldName + '</strong>: ' + messages[i].message + '</p>';            
+            message = message + '<p><strong>' + messages[i].fieldName + '</strong>: ' + messages[i].message + '</p>';
         }
         return message;
     }

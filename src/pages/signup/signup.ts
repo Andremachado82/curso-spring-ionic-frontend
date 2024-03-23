@@ -18,7 +18,7 @@ export class SignupPage {
   listaCidades: CidadeDTO[];
   listaEstados: EstadoDTO[];
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public cidadeService: CidadeService,
@@ -26,23 +26,23 @@ export class SignupPage {
     public clienteService: ClienteService,
     public alertController: AlertController) {
 
-      this.formGroup = this.formBuilder.group({
-        nome: ['André', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
-        email: ['andre@gmail.com', [Validators.required, Validators.email]],
-        tipo: ['1', [Validators.required]],
-        cpfOuCnpj: ['74228816070',[Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
-        senha: ['123', [Validators.required]],
-        logradouro: ['Rua Maria Betina', [Validators.required]],
-        numero: ['12', [Validators.required]],
-        complemento: ['apt 1', []],
-        bairro: ['Copacabana', []],
-        cep: ['88745000', [Validators.required]],
-        telefone1: ['991856789', [Validators.required]],
-        telefone2: ['', []],
-        telefone3: ['', []],
-        estadoId: [null, [Validators.required]],
-        cidadeId: [null, [Validators.required]]
-      });
+    this.formGroup = this.formBuilder.group({
+      nome: ['André', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
+      email: ['andre@gmail.com', [Validators.required, Validators.email]],
+      tipo: ['1', [Validators.required]],
+      cpfOuCnpj: ['74228816070', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
+      senha: ['123', [Validators.required]],
+      logradouro: ['Rua Maria Betina', [Validators.required]],
+      numero: ['12', [Validators.required]],
+      complemento: ['apt 1', []],
+      bairro: ['Copacabana', []],
+      cep: ['88745000', [Validators.required]],
+      telefone1: ['991856789', [Validators.required]],
+      telefone2: ['', []],
+      telefone3: ['', []],
+      estadoId: [null, [Validators.required]],
+      cidadeId: [null, [Validators.required]]
+    });
   }
 
   ionViewDidLoad() {
@@ -52,26 +52,26 @@ export class SignupPage {
         this.formGroup.controls.estadoId.setValue(this.listaEstados[0].id);
         this.updateCidades();
       }, error => {
-       
+
       });
   }
 
   signupUser() {
     this.clienteService.create(this.formGroup.value)
-    .subscribe(response => {
-      this.createSuccess();
-    }, error => {});
+      .subscribe(response => {
+        this.createSuccess();
+      }, error => { });
   }
 
   updateCidades() {
     let idEstado = this.formGroup.value.estadoId;
     this.cidadeService.findAllCidades(idEstado)
-    .subscribe(response => {
-      this.listaCidades = response;
-      this.formGroup.controls.cidadeId.setValue(null);
-    }, error => {
-     
-    });
+      .subscribe(response => {
+        this.listaCidades = response;
+        this.formGroup.controls.cidadeId.setValue(null);
+      }, error => {
+
+      });
   }
 
   createSuccess() {
@@ -91,5 +91,5 @@ export class SignupPage {
     alert.present();
   }
 
-  
+
 }

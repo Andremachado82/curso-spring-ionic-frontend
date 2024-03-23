@@ -7,10 +7,10 @@ import { EstadoDTO } from "../../models/estado.dto";
 @Injectable()
 export class EstadoService {
 
-    constructor(public http: HttpClient) {        
+    constructor(public http: HttpClient) {
     }
 
-    findAllEstados() : Observable<EstadoDTO[]> {
+    findAllEstados(): Observable<EstadoDTO[]> {
         return this.http.get<EstadoDTO[]>(`${API_CONFIG.baseUrl}/estados`);
     }
 }

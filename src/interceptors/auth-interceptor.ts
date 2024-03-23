@@ -7,7 +7,7 @@ import { API_CONFIG } from "../config/api.config";
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-    constructor(public storage: StorageService) {}
+    constructor(public storage: StorageService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -16,13 +16,13 @@ export class AuthInterceptor implements HttpInterceptor {
         let requestParaApi = req.url.substring(0, sizeUrl) == API_CONFIG.baseUrl;
 
         if (localUser && requestParaApi) {
-            const authRequest = req.clone({headers: req.headers.set('Authorization', 'Bearer ' + localUser.token)});
+            const authRequest = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + localUser.token) });
             return next.handle(authRequest);
         } else {
             return next.handle(req)
         }
     }
-}   
+}
 
 export const AuthInterceptorProvider = {
     provide: HTTP_INTERCEPTORS,

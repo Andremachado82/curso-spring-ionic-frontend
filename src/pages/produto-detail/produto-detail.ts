@@ -14,7 +14,7 @@ export class ProdutoDetailPage {
 
   item: ProdutoDTO
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public produtoService: ProdutoService,
     public cartService: CartService) {
@@ -23,17 +23,17 @@ export class ProdutoDetailPage {
   ionViewDidLoad() {
     let idProduto = this.navParams.get('idProduto');
     this.produtoService.findByIdProduto(idProduto)
-    .subscribe(response => {
-      this.item = response;
-      this.getImageUrlIfExists();
-    }, error => {});
+      .subscribe(response => {
+        this.item = response;
+        this.getImageUrlIfExists();
+      }, error => { });
   }
 
   getImageUrlIfExists() {
     this.produtoService.getImageFromBucket(this.item.id)
-    .subscribe(response => {
-      this.item.imageUrl = `${API_CONFIG.bucketS3BaseUrl}/prod${this.item.id}.jpg`;
-    }, error => {})
+      .subscribe(response => {
+        this.item.imageUrl = `${API_CONFIG.bucketS3BaseUrl}/prod${this.item.id}.jpg`;
+      }, error => { })
   }
 
   addToProduto(produto: ProdutoDTO) {

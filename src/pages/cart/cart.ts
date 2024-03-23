@@ -15,7 +15,7 @@ export class CartPage {
 
   items: CartItem[];
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public cartService: CartService,
     public produtoService: ProdutoService) {
@@ -25,15 +25,15 @@ export class CartPage {
     let cart = this.cartService.getCart();
     this.items = cart.itens;
     this.getImageIfExistsFromBucket();
-  } 
+  }
 
   getImageIfExistsFromBucket() {
     for (let i = 0; i < this.items.length; i++) {
       let item = this.items[i];
       this.produtoService.getSmallImageFromBucket(item.produto.id)
-      .subscribe(response => {
-        item.produto.imageUrl = `${API_CONFIG.bucketS3BaseUrl}/prod${item.produto.id}-small.jpg`;
-      }, error => {})      
+        .subscribe(response => {
+          item.produto.imageUrl = `${API_CONFIG.bucketS3BaseUrl}/prod${item.produto.id}-small.jpg`;
+        }, error => { })
     }
   }
 
@@ -42,11 +42,11 @@ export class CartPage {
   }
 
   incrementQuantity(produto: ProdutoDTO) {
-      this.items = this.cartService.incrementQuantity(produto).itens;
+    this.items = this.cartService.incrementQuantity(produto).itens;
   }
 
   decrementQuantity(produto: ProdutoDTO) {
-      this.items = this.cartService.decrementQuantity(produto).itens;
+    this.items = this.cartService.decrementQuantity(produto).itens;
   }
 
   totalCart(): number {
@@ -60,5 +60,5 @@ export class CartPage {
   checkout() {
     this.navCtrl.push('EscolherEnderecoPage');
   }
- 
+
 }

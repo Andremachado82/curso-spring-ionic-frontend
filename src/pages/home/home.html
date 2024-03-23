@@ -1,4 +1,3 @@
-
 <ion-content padding>
   <h3>Sistema de Pedidos</h3>
 
@@ -7,16 +6,18 @@
   <form action="">
     <ion-item>
       <ion-label stacked>Email</ion-label>
-      <ion-input [(ngModel)]="credenciais.email" name="email" label="Text input" placeholder="digite um email"></ion-input>
+      <ion-input [(ngModel)]="credenciais.email" name="email" label="Text input"
+        placeholder="digite um email"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Senha</ion-label>
-      <ion-input [(ngModel)]="credenciais.senha" name="senha" label="Password input" type="password" placeholder="digite sua senha"></ion-input>
+      <ion-input [(ngModel)]="credenciais.senha" name="senha" label="Password input" type="password"
+        placeholder="digite sua senha"></ion-input>
     </ion-item>
 
     <button ion-button block (click)="login()">Entrar</button>
-    
+
   </form>
   <button ion-button block outline (click)="signup()">Registrar</button>
 </ion-content>

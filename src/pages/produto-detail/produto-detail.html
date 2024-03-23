@@ -12,15 +12,15 @@
     <button navPush="CartPage" ion-fab mini>
       <ion-icon name="cart"></ion-icon>
     </button>
-    </ion-fab>
+  </ion-fab>
   <ion-card>
     <img [src]="item?.imageUrl || 'assets/imgs/prod.jpg'">
     <ion-card-content>
       <ion-card-title>
         {{item?.nome}}
       </ion-card-title>
-      <p>{{item?.preco |  currency:"BRL":true:"1.2"}}</p>
+      <p>{{item?.preco | currency:"BRL":true:"1.2"}}</p>
     </ion-card-content>
   </ion-card>
-  <button ion-button block outline  (click)="addToProduto(item)">Adicionar ao carrinho</button>
+  <button ion-button block outline (click)="addToProduto(item)">Adicionar ao carrinho</button>
 </ion-content>

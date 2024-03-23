@@ -10,9 +10,9 @@ import { CartService } from "./domain/cart.service";
 @Injectable()
 export class AuthService {
 
-    jwtHelpr: JwtHelper  = new JwtHelper();
+    jwtHelpr: JwtHelper = new JwtHelper();
 
-    constructor(public http: HttpClient, 
+    constructor(public http: HttpClient,
         public storage: StorageService,
         public cartService: CartService) {
 

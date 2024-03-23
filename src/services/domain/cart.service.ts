@@ -7,11 +7,11 @@ import { ProdutoDTO } from "../../models/produto.dto";
 @Injectable()
 export class CartService {
 
-    constructor(public storageService: StorageService, public http: HttpClient) {        
+    constructor(public storageService: StorageService, public http: HttpClient) {
     }
 
     createOrClearCart(): Cart {
-        let cart: Cart = {itens: []};
+        let cart: Cart = { itens: [] };
         this.storageService.setLocalCart(cart);
         return cart;
     }
@@ -28,7 +28,7 @@ export class CartService {
         let cart = this.getCart();
         let position = cart.itens.findIndex(p => p.produto.id == produto.id);
         if (position == -1) { // se não encontrar
-            cart.itens.push({quantidade: 1, produto: produto});
+            cart.itens.push({ quantidade: 1, produto: produto });
         }
         this.storageService.setLocalCart(cart);
         return cart;
@@ -71,11 +71,11 @@ export class CartService {
     totalCart() {
         let cart = this.getCart();
         let sum = 0;
-        for (let i=0; i < cart.itens.length; i++) {
+        for (let i = 0; i < cart.itens.length; i++) {
             sum += cart.itens[i].produto.preco * cart.itens[i].quantidade;
         }
         return sum;
     }
 
-    
+
 }

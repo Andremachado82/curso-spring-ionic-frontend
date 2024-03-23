@@ -21,13 +21,13 @@ export class ConfirmacaoPagamentoPage {
   endereco: EnderecoDTO;
   codigoPedido: string;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public cartService: CartService,
     public clienteService: ClienteService,
     public pedidoService: PedidoService) {
 
-      this.pedido = this.navParams.get('pedido');
+    this.pedido = this.navParams.get('pedido');
   }
 
   ionViewDidLoad() {
@@ -35,12 +35,12 @@ export class ConfirmacaoPagamentoPage {
 
     this.clienteService.findById(this.pedido.cliente.id)
       .subscribe(response => {
-      this.cliente = response as ClienteDTO;
-      this.endereco = this.findEndereco(this.pedido.enderecoDeEntrega.id, 
-      response['enderecos']);
-    }, error => {
-      this.navCtrl.setRoot('HomePage');
-    });
+        this.cliente = response as ClienteDTO;
+        this.endereco = this.findEndereco(this.pedido.enderecoDeEntrega.id,
+          response['enderecos']);
+      }, error => {
+        this.navCtrl.setRoot('HomePage');
+      });
   }
 
   private findEndereco(id: string, lista: EnderecoDTO[]): EnderecoDTO {
@@ -66,7 +66,7 @@ export class ConfirmacaoPagamentoPage {
         this.cartService.createOrClearCart();
         this.codigoPedido = this.extrairId(response.headers.get('location'));
       }, error => {
-        if(error.status == 403) {
+        if (error.status == 403) {
           this.navCtrl.setRoot('HomePage');
         }
       });

@@ -15,7 +15,7 @@ export class CategoriasPage {
 
   bucketUrl: string = API_CONFIG.bucketS3BaseUrl;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public categriaService: CategoriaService,
     public loadingController: LoadingController) {
@@ -24,16 +24,16 @@ export class CategoriasPage {
   ionViewDidLoad() {
     let loader = this.presentLoading();
     this.categriaService.finAll()
-    .subscribe(response => {
-      this.items = response;
-      loader.dismiss();
-    }, error => {
-      loader.dismiss();
-    });
+      .subscribe(response => {
+        this.items = response;
+        loader.dismiss();
+      }, error => {
+        loader.dismiss();
+      });
   }
 
   showProdutos(idCategoria: string) {
-    this.navCtrl.push('ProdutosPage', {idCategoria: idCategoria});
+    this.navCtrl.push('ProdutosPage', { idCategoria: idCategoria });
   }
 
   presentLoading() {

@@ -15,20 +15,20 @@ export class StorageService {
         return JSON.parse(user);
     }
 
-    setLocalUser(obj: LocalUser){
+    setLocalUser(obj: LocalUser) {
         if (obj == null) localStorage.removeItem(STORAGE_KEYS.localUserStorage);
 
         localStorage.setItem(STORAGE_KEYS.localUserStorage, JSON.stringify(obj));
     }
 
-    getLocalCart() : Cart{
+    getLocalCart(): Cart {
         let cart = localStorage.getItem(STORAGE_KEYS.cart);
         if (cart == null) return null;
 
         return JSON.parse(cart);
     }
 
-    setLocalCart(obj: Cart){
+    setLocalCart(obj: Cart) {
         if (obj == null) localStorage.removeItem(STORAGE_KEYS.cart);
 
         localStorage.setItem(STORAGE_KEYS.cart, JSON.stringify(obj));

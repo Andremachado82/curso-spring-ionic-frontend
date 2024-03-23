@@ -16,7 +16,7 @@ export class PagamentoPage {
 
   formGroup: FormGroup;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder) {
     this.pedido = this.navParams.get('pedido'); // pega o pedido que veio da pagina de endereco
@@ -29,7 +29,7 @@ export class PagamentoPage {
 
   nextPage() {
     this.pedido.pagamento = this.formGroup.value;
-    this.navCtrl.setRoot('ConfirmacaoPagamentoPage', {pedido: this.pedido});
+    this.navCtrl.setRoot('ConfirmacaoPagamentoPage', { pedido: this.pedido });
   }
 
 }

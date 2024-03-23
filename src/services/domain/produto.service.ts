@@ -7,7 +7,7 @@ import { ProdutoDTO } from "../../models/produto.dto";
 @Injectable()
 export class ProdutoService {
 
-    constructor(public http: HttpClient) {        
+    constructor(public http: HttpClient) {
     }
 
     findByCategoria(idCategoria: string, page: number = 0, linesPerPage: number = 24) {
@@ -16,7 +16,7 @@ export class ProdutoService {
 
     getSmallImageFromBucket(id: string): Observable<any> {
         let url = `${API_CONFIG.bucketS3BaseUrl}/prod${id}-small.jpg`
-        return this.http.get(url, {responseType: 'blob'});
+        return this.http.get(url, { responseType: 'blob' });
     }
 
     findByIdProduto(id: string) {
@@ -25,6 +25,6 @@ export class ProdutoService {
 
     getImageFromBucket(idProduto: string) {
         let url = `${API_CONFIG.bucketS3BaseUrl}/prod${idProduto}.jpg`
-        return this.http.get(url, {responseType: 'blob'});
+        return this.http.get(url, { responseType: 'blob' });
     }
 }

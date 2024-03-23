@@ -12,46 +12,46 @@ import { API_CONFIG } from '../../config/api.config';
 export class ProdutosPage {
 
   listaProdutos: ProdutoDTO[] = [];
-  page : number = 0;
+  page: number = 0;
 
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public produtoService: ProdutoService,
     public loadingController: LoadingController) {
   }
 
   ionViewDidLoad() {
-    this.loadData();    
+    this.loadData();
   }
 
   loadData() {
     let idCategoria = this.navParams.get('idCategoria');
     let loader = this.presentLoading();
     this.produtoService.findByCategoria(idCategoria, this.page, 10)
-    .subscribe(response => {
-      let start = this.listaProdutos.length;
-      this.listaProdutos = this.listaProdutos.concat(response['content']);
-      let end = this.listaProdutos.length -1;
-      loader.dismiss();
-      this.getImageIfExistsFromBucket(start, end);
-    }, error => {
-      loader.dismiss();
-    });
+      .subscribe(response => {
+        let start = this.listaProdutos.length;
+        this.listaProdutos = this.listaProdutos.concat(response['content']);
+        let end = this.listaProdutos.length - 1;
+        loader.dismiss();
+        this.getImageIfExistsFromBucket(start, end);
+      }, error => {
+        loader.dismiss();
+      });
   }
 
   getImageIfExistsFromBucket(start: number, end: number) {
-    for (let i = start; i <=end; i++) {
+    for (let i = start; i <= end; i++) {
       let item = this.listaProdutos[i];
       this.produtoService.getSmallImageFromBucket(item.id)
-      .subscribe(response => {
-        item.imageUrl = `${API_CONFIG.bucketS3BaseUrl}/prod${item.id}-small.jpg`;
-      }, error => {})      
+        .subscribe(response => {
+          item.imageUrl = `${API_CONFIG.bucketS3BaseUrl}/prod${item.id}-small.jpg`;
+        }, error => { })
     }
   }
 
   showDetail(idProduto: string) {
-    this.navCtrl.push('ProdutoDetailPage', {idProduto: idProduto});
+    this.navCtrl.push('ProdutoDetailPage', { idProduto: idProduto });
   }
 
   presentLoading() {

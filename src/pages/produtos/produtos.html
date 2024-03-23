@@ -15,17 +15,17 @@
     <button navPush="CartPage" ion-fab mini>
       <ion-icon name="cart"></ion-icon>
     </button>
-    </ion-fab>
+  </ion-fab>
   <ion-list>
     <ion-item *ngFor="let item of listaProdutos" (click)="showDetail(item.id)">
       <ion-thumbnail item-start>
         <img [src]="item.imageUrl || 'assets/imgs/prod.jpg'">
       </ion-thumbnail>
       <h2>{{item.nome}}</h2>
-      <p>{{item.preco |  currency:"BRL":true:"1.2"}}</p>
+      <p>{{item.preco | currency:"BRL":true:"1.2"}}</p>
     </ion-item>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="infiniteScrool($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll> 
+  </ion-infinite-scroll>
 </ion-content>

@@ -53,9 +53,7 @@ export class ProfilePage {
   }
 
   getCameraPicture() {
-
     this.cameraOn = true;
-
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -67,6 +65,7 @@ export class ProfilePage {
       this.picture = 'data:image/png;base64,' + imageData;
       this.cameraOn = false;
     }, (err) => {
+      console.log(err)
     });
   }
 
@@ -74,7 +73,9 @@ export class ProfilePage {
     this.clienteService.uploadPicture(this.picture)
       .subscribe(response => {
         this.picture = null;
-        this.loadData();
+        // this.loadData();
+        this.getImageIfExistsFromBucket();
+
       },
         error => {
         });
@@ -82,6 +83,10 @@ export class ProfilePage {
 
   cancel() {
     this.picture = null;
+  }
+
+  teste() {
+    this.getImageIfExistsFromBucket();
   }
 
 }
